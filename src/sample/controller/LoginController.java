@@ -60,7 +60,7 @@ public class LoginController {
 
 
             if( !loginPas.equals("") && !loginText.equals("")){
-                System.out.println("you are in ");
+                System.out.println("youa are in ");
                 loginUser(loginText,loginPas);
             }else {
                 System.out.println("Log in Error");
