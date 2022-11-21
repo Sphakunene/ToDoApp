@@ -12,10 +12,13 @@ public class Const {
     public static final String USERS_PASSWORD = "password";
     public static final String USERS_LOCATION = "location";
     public static final String USERS_GENDER ="gender";
+    public static final String USERS_USERNAME = "username";
+
 
     //task table column name
     public static final String  TASK_ID = "taskid";
     public static final String  TASK_DATE ="datecreated";
     public static final String  TASK_DESCRIPTION = "description";
+
 
 }
