@@ -2,10 +2,7 @@ package sample.Database;
 
 import sample.model.User;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class DatabaseHandler extends Configs {
 
@@ -36,7 +33,9 @@ public class DatabaseHandler extends Configs {
 
     }
 
-    public boolean isUserLoggedIn(User user) throws SQLException {
+    public ResultSet getUser(User user) throws SQLException {
+
+        ResultSet resultSet = null;
 
         if (!user.getUserName().equals("") && ! user.getPassword().equals("")){
 
@@ -46,8 +45,13 @@ public class DatabaseHandler extends Configs {
             statement.setString(1,user.getUserName());
             statement.setString(2,user.getPassword());
 
+            resultSet = statement.executeQuery();
+
+        }
+        else{
+            System.out.println("Please enter your credentials");
         }
 
-        return false;
+        return resultSet;
     }
 }

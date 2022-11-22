@@ -8,6 +8,9 @@ public class User {
     private String password;
     private String location;
 
+    public User() {
+    }
+
     public User(String firstName, String lastName, String userName, String password, String location, String gender) {
         this.firstName = firstName;
         this.lastName = lastName;

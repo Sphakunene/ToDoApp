@@ -6,12 +6,16 @@ import com.jfoenix.controls.JFXTextField;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import sample.Database.DatabaseHandler;
+import sample.model.User;
 
 public class LoginController {
 
@@ -33,8 +37,12 @@ public class LoginController {
     @FXML
     private JFXButton loginSignUpButton;
 
+    private DatabaseHandler database;
+
     @FXML
     void initialize() {
+
+        database = new DatabaseHandler();
 
         loginSignUpButton.setOnAction(event -> {
             loginSignUpButton.getScene().getWindow().hide();
@@ -54,23 +62,33 @@ public class LoginController {
 
 
         loginButton.setOnAction(event -> {
+        String username = loginUsername.getText().trim();
+        String password = loginPassword.getText().trim();
+        User user  = new User();
+        user.setUserName(username);
+        user.setPassword(password);
 
-            String loginPas = loginPassword.getText().trim();
-            String loginText = loginUsername.getText().trim();
+            try {
+                ResultSet userRow = database.getUser(user);
+                int count = 0;
 
-
-            if( !loginPas.equals("") && !loginText.equals("")){
-                System.out.println("youa are in ");
-                loginUser(loginText,loginPas);
-            }else {
-                System.out.println("Log in Error");
+                while (userRow.next()){
+                    count++;
+                }
+                if (count == 1 ){
+                    System.out.println("we are in");
+                }
+                else{
+                    System.out.println("enter the correct login details");
+                }
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
             }
+
 
         });
 
     }
 
-    private void loginUser(String userName, String userPassword) {
 
-    }
 }
