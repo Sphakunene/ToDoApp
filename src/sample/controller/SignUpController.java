@@ -6,9 +6,11 @@ import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
+import sample.Database.DatabaseHandler;
 
 public class SignUpController {
 
@@ -40,7 +42,22 @@ public class SignUpController {
     private JFXButton signUpButton;
 
     @FXML
+    private JFXTextField signUpLocation;
+
+    @FXML
     void initialize() {
+
+        DatabaseHandler handler = new DatabaseHandler();
+
+        signUpButton.setOnAction(event -> {
+
+            try {
+                handler.signUpUser(signUpFirstName.getText(),signUpLastName.getText(),signUpUsername.getText(),
+                        signUpPassword.getText(),signUpLocation.getText(),"Female");
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        });
 
     }
 }

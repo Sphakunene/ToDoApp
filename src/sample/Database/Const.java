@@ -6,7 +6,7 @@ public class Const {
     public static final String TASKS_TABLE = "task";
 
     //Users table column name
-    public static final String USERS_FIRTSNAME = "firstname";
+    public static final String USERS_FIRSTNAME = "firstname";
     public static final String USERS_LASTNAME = "lastname";
     public static final String USERS_USERID = "userid";
     public static final String USERS_PASSWORD = "password";
