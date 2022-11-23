@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import sample.Database.DatabaseHandler;
+import sample.animation.Shaker;
 import sample.model.Task;
 
 public class AddItemFormController {
@@ -45,15 +46,23 @@ public class AddItemFormController {
             Task task = new Task();
             Calendar calendar = Calendar.getInstance();
             Timestamp timestamp = new Timestamp(calendar.getTimeInMillis());
-            task.setTask(taskField.getText());
-            task.setDatecreated(timestamp);
-            task.setUserId(AddItemController.getUserId());
-            task.setDescription(descriptionField.getText());
+            if (!taskField.getText().equals("") && !descriptionField.getText().equals("")) {
+                task.setTask(taskField.getText());
+                task.setDatecreated(timestamp);
+                task.setUserId(AddItemController.getUserId());
+                task.setDescription(descriptionField.getText());
 
-            try {
-                databaseHandler.insertTask(task);
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
+                try {
+                    databaseHandler.insertTask(task);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }else{
+                Shaker shaker = new Shaker(taskField);
+                Shaker shaker1 = new Shaker(descriptionField);
+                shaker.shake();
+                shaker1.shake();
+
             }
         });
 
