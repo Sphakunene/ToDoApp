@@ -17,6 +17,9 @@ import sample.animation.Transition;
 
 public class AddItemController {
 
+
+
+    private static int userId;
     @FXML
     private ResourceBundle resources;
 
@@ -35,7 +38,7 @@ public class AddItemController {
     @FXML
     void initialize() {
         addButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-            System.out.println("added click");
+
             Shaker buttonShaker = new Shaker(addButton);
             buttonShaker.shake();
 
@@ -45,22 +48,28 @@ public class AddItemController {
 
              addButton.setOpacity(0);
              noTaskLabel.setOpacity(0);
-//            Transition tran = new Transition(addButton);
-//            Transition tran1 = new Transition(noTaskLabel);
-//            tran.transit();
-//            tran1.transit();
-
 
             try {
                 AnchorPane formPane = FXMLLoader.load(getClass().getResource("/sample/view/addItemForm.fxml"));
+             //   AddItemController.userId =userId;
 
                 Transition tran2 = new Transition(formPane);
                 tran2.transit();
                 rootAnchorPane.getChildren().addAll(formPane);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
         });
     }
+    public static int getUserId() {
+        return userId;
+    }
+
+    public  void setUserId(int userId) {
+        AddItemController.userId = userId;
+    }
+
+
 }

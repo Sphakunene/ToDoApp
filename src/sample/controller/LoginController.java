@@ -19,7 +19,7 @@ import sample.animation.Shaker;
 import sample.model.User;
 
 public class LoginController {
-
+    private int userId;
     @FXML
     private ResourceBundle resources;
 
@@ -75,9 +75,12 @@ public class LoginController {
 
                 while (userRow.next()){
                     count++;
+                    userId = userRow.getInt("userid");
                 }
                 if (count == 1 ){
+
                     showItemScreen();
+
                 }
                 else{
                     Shaker usernameShaker = new Shaker(loginUsername);
@@ -105,6 +108,8 @@ public class LoginController {
         Parent root = loader.getRoot();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
+        AddItemController addItemController = loader.getController();
+        addItemController.setUserId(userId);
         stage.showAndWait();
 
     }
