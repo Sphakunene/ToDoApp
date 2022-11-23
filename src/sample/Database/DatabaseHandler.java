@@ -1,5 +1,6 @@
 package sample.Database;
 
+import sample.model.Task;
 import sample.model.User;
 
 import java.sql.*;
@@ -53,5 +54,16 @@ public class DatabaseHandler extends Configs {
         }
 
         return resultSet;
+    }
+    public void insertTask(Task task) throws SQLException {
+
+        String insert = "INSERT" +
+                " INTO "+Const.TASKS_TABLE+"("+ Const.TASK_DATE+","+ Const.TASK_DESCRIPTION+","+ Const.TASK_TASK+")"+" VALUES(?,?,?)";
+        PreparedStatement statement = getConnection().prepareStatement(insert);
+        statement.setLong(1,task.getDatecreated());
+        statement.setString(2, task.getDescription());
+        statement.setString(3, task.getTask());
+        statement.executeUpdate();
+
     }
 }

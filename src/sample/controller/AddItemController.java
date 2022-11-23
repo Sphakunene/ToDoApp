@@ -1,16 +1,19 @@
 package sample.controller;
 
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.util.Duration;
+import javafx.scene.layout.AnchorPane;
 import sample.animation.Shaker;
+import sample.animation.Transition;
+
 
 public class AddItemController {
 
@@ -27,31 +30,36 @@ public class AddItemController {
     private Label noTaskLabel;
 
     @FXML
+    private AnchorPane rootAnchorPane;
+
+    @FXML
     void initialize() {
-        addButton.addEventHandler(MouseEvent.MOUSE_CLICKED,event -> {
+        addButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             System.out.println("added click");
             Shaker buttonShaker = new Shaker(addButton);
             buttonShaker.shake();
 
-            FadeTransition fade = new FadeTransition(Duration.millis(2000),addButton);
-            FadeTransition fadeLAbel = new FadeTransition(Duration.millis(2000),noTaskLabel);
+
             addButton.relocate(0,20);
             noTaskLabel.relocate(0,45);
 
-            addButton.setOpacity(0);
-            noTaskLabel.setOpacity(0);
+             addButton.setOpacity(0);
+             noTaskLabel.setOpacity(0);
+//            Transition tran = new Transition(addButton);
+//            Transition tran1 = new Transition(noTaskLabel);
+//            tran.transit();
+//            tran1.transit();
 
-            fade.setFromValue(1f);
-            fade.setToValue(0f);
-            fade.setCycleCount(1);
-            fade.setAutoReverse(false);
-            fade.play();
 
-            fadeLAbel.setFromValue(1f);
-            fadeLAbel.setToValue(0f);
-            fadeLAbel.setCycleCount(1);
-            fadeLAbel.setAutoReverse(false);
-            fadeLAbel.play();
+            try {
+                AnchorPane formPane = FXMLLoader.load(getClass().getResource("/sample/view/addItemForm.fxml"));
+
+                Transition tran2 = new Transition(formPane);
+                tran2.transit();
+                rootAnchorPane.getChildren().addAll(formPane);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
         });
     }
