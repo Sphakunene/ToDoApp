@@ -10,6 +10,8 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import sample.Database.DatabaseHandler;
 import sample.animation.Shaker;
@@ -39,6 +41,12 @@ public class AddItemFormController {
     private DatabaseHandler databaseHandler;
 
     @FXML
+    private Button todosButton;
+
+    @FXML
+    private Label suceessLabel;
+
+    @FXML
     void initialize() {
         databaseHandler = new DatabaseHandler();
 
@@ -54,6 +62,16 @@ public class AddItemFormController {
 
                 try {
                     databaseHandler.insertTask(task);
+                    suceessLabel.setVisible(true);
+                    todosButton.setVisible(true);
+                    int taskNumber = databaseHandler.getAllTask(task);
+                    taskField.setText("");
+                    descriptionField.setText("");
+                    todosButton.setText("My 2Do's: "+taskNumber);
+                    todosButton.setOnAction(event1 -> {
+
+
+                    });
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }

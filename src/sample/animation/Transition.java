@@ -10,7 +10,7 @@ public class Transition {
 
     public Transition(Node node) {
 
-        fade = new FadeTransition(Duration.millis(2000),node);
+        fade = new FadeTransition(Duration.millis(1000),node);
 
         fade.setFromValue(0f);
         fade.setToValue(1f);

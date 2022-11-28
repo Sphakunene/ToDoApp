@@ -67,4 +67,18 @@ public class DatabaseHandler extends Configs {
         statement.executeUpdate();
 
     }
+
+    public int getAllTask(Task task) throws SQLException {
+        String select = "SELECT * FROM "+Const.TASKS_TABLE+ " WHERE "+ Const.USERS_USERID + " = ?" ;
+        PreparedStatement statement = getConnection().prepareStatement(select);
+        statement.setInt(1,task.getUserId());
+        ResultSet result = statement.executeQuery();
+        int count = 0;
+        while (result.next()){
+            count ++;
+        }
+
+        return count;
+
+    }
 }
